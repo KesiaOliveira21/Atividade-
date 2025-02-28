@@ -43,3 +43,21 @@ if (idade >= 18) {
 
 const mensagem = idade >= 18 ? "Maior de idade" : "Menor de idade"
 console.log("Mensagens ->", mensagem)
+
+//Arrays - Listas
+
+const frutas = ["Maçã", 'Banana','Uva']
+console.log(frutas[0])
+console.log(frutas[1])
+
+console.log("Quantas frutas tem no array?")
+console.log(frutas.length)
+
+frutas.push("Laranja")
+console.log("E agora, Quantas frutas tem no array?")
+console.log(frutas.length)
+
+frutas.forEach(fruta => console.log(fruta))
+
+frutas.pop()
+console.log(frutas)
