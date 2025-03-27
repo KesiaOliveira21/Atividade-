@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function JavascriptComponente() {
   // lógica do componente
-  const nome = "Gustavo"
+  const nome = "Kesia"
   const idade = 16
 
   function checarMaiorIdade() {
