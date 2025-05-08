@@ -1,23 +1,52 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Title, Paragraph } from 'react-native-paper';
+import { Text, Card } from 'react-native-paper';
 
-export default function EscudoScreen() {
+const EscudoScreen = () => {
+  const time = {
+    nome: "Liverpool F.C.",
+    escudo: "https://static.vecteezy.com/ti/vetor-gratis/p1/26135429-liverpool-clube-simbolo-logotipo-premier-liga-futebol-abstrato-projeto-ilustracao-gratis-vetor.jpg",
+    fundacao: "3 de junho de 1892",
+    estadio: "Anfield",
+    mascote: "Mighty Red (Liverbird)",
+    cores: ["Vermelho", "Branco"]
+  };
+
   return (
     <View style={styles.container}>
-      <Title>Flamengo</Title>
-      <Image
-        source={{ uri: 'https://i.pinimg.com/236x/16/db/d2/16dbd20fd582e025dc54cc3fbd1839c9.jpg' }}
-        style={styles.image}
-      />
-      <Paragraph>Fundado em 15 de novembro de 1895</Paragraph>
-      <Paragraph>Estádio: Maracanã</Paragraph>
-      <Paragraph>Mascote: Urubu</Paragraph>
+      <Card style={styles.card}>
+        <Card.Content>
+          <Text variant="titleLarge" style={styles.title}>{time.nome}</Text>
+          <Image source={{ uri: time.escudo }} style={styles.escudo} resizeMode="contain" />
+          <Text variant="bodyMedium">Fundado em: {time.fundacao}</Text>
+          <Text variant="bodyMedium">Estádio: {time.estadio}</Text>
+          <Text variant="bodyMedium">Mascote: {time.mascote}</Text>
+          <Text variant="bodyMedium">Cores: {time.cores.join(", ")}</Text>
+        </Card.Content>
+      </Card>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  image: { width: 150, height: 150, marginVertical: 20 },
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  card: {
+    padding: 16,
+  },
+  escudo: {
+    width: '100%',
+    height: 150,
+    marginVertical: 16,
+  },
+  title: {
+    marginBottom: 12,
+    textAlign: 'center',
+  },
 });
+
+export default EscudoScreen;
