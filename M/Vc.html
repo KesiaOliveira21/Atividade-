@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Para o amor da minha vida</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: #ff6f91;
+  }
+
+  #envelope {
+    background: #222;
+    border-radius: 15px;
+    padding: 30px 50px;
+    box-shadow: 0 0 20px #ff6f91;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+  }
+
+  #envelope:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+
+  #envelope h1 {
+    margin: 0 0 10px;
+    font-size: 2.2em;
+  }
+
+  /* Tulipas caindo */
+  .tulipa {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-image: url('https://emojicdn.elk.sh/🌷');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px #ff6f91);
+    will-change: transform;
+  }
+
+  #foto {
+    display: none;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #ff6f91;
+  }
+
+  #foto img {
+    width: 220px;
+    border-radius: 10px;
+    display: block;
+  }
+
+  #frase {
+    display: none;
+    margin-top: 25px;
+    font-size: 2em;
+    text-align: center;
+    color: #ff6f91;
+    text-shadow: 2px 2px 8px #fff;
+    animation: piscar 1.5s infinite alternate;
+  }
+
+  @keyframes piscar {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+  }
+
+  .fogos {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1000;
+  }
+
+  .particula {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: explodir 1s forwards ease-out;
+  }
+
+  @keyframes explodir {
+    to {
+      transform: translate(var(--x), var(--y));
+      opacity: 0;
+    }
+  }
+
+  #presente {
+    display: none;
+    margin-top: 30px;
+    font-size: 50px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #gatinho {
+    display: none;
+    margin-top: 30px;
+    position: relative;
+    text-align: center;
+  }
+
+  #gatinho img {
+    width: 160px;
+    border-radius: 10px;
+  }
+
+  #girassol {
+    position: absolute;
+    bottom: 12px;
+    right: -20px;
+    font-size: 40px;
+  }
+
+  #fraseFinal {
+    margin-top: 10px;
+    font-size: 2em;
+    color: #ff6f91;
+    text-align: center;
+    text-shadow: 2px 2px 8px #fff;
+    animation: aparecer 2s ease forwards;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div id="envelope">
+  <h1>Para o amor da minha vida</h1>
+  <p>Clique aqui 💌</p>
+</div>
+
+<div id="foto">
+  <img src="https://www.instagram.com/stories/highlights/17862297243220977/" alt="Foto dela" />
+</div>
+
+<div id="frase">Você é a garota mais linda do mundo! 💖</div>
+
+<div class="fogos" id="fogos"></div>
+
+<div id="presente">🎁</div>
+
+<div id="gatinho">
+  <img src="https://i.pinimg.com/736x/3f/c7/d2/3fc7d2bcfd8b7d64d96a83798733224d.jpg" alt="Gatinho fofo com girassol" />
+  <div id="girassol"></div>
+  <div id="fraseFinal">Para a minha gatinha! </div>
+</div>
+
+<script>
+  const envelope = document.getElementById('envelope');
+  const foto = document.getElementById('foto');
+  const frase = document.getElementById('frase');
+  const fogos = document.getElementById('fogos');
+  const presente = document.getElementById('presente');
+  const gatinho = document.getElementById('gatinho');
+  const fraseFinal = document.getElementById('fraseFinal');
+
+  function criarTulipa() {
+    const tulipa = document.createElement('div');
+    tulipa.classList.add('tulipa');
+    tulipa.style.left = Math.random() * window.innerWidth + 'px';
+    tulipa.style.top = '-50px';
+
+    document.body.appendChild(tulipa);
+
+    const duracao = 4000 + Math.random() * 3000;
+    const deslocX = (Math.random() - 0.5) * 100;
+
+    let inicio = null;
+    function animar(timestamp) {
+      if (!inicio) inicio = timestamp;
+      const tempoDecorrido = timestamp - inicio;
+
+      const proporcao = tempoDecorrido / duracao;
+      if (proporcao < 1) {
+        tulipa.style.top = proporcao * (window.innerHeight + 60) + 'px';
+        tulipa.style.left = parseFloat(tulipa.style.left) + deslocX * 0.01 + 'px'; 
+        requestAnimationFrame(animar);
+      } else {
+        tulipa.remove();
+      }
+    }
+
+    requestAnimationFrame(animar);
+  }
+
+  function chuvaTulipas(duracaoMs, callback) {
+    const intervalo = 300;
+    let contador = 0;
+    const maxTulipas = Math.floor(duracaoMs / intervalo);
+    const intervaloID = setInterval(() => {
+      criarTulipa();
+      contador++;
+      if (contador >= maxTulipas) {
+        clearInterval(intervaloID);
+        if (callback) callback();
+      }
+    }, intervalo);
+  }
+
+  function soltarFogos() {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        criarExplosao(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+      }, i * 500);
+    }
+  }
+
+  function criarExplosao(x, y) {
+    for (let i = 0; i < 20; i++) {
+      const particula = document.createElement('div');
+      particula.classList.add('particula');
+      particula.style.left = x + 'px';
+      particula.style.top = y + 'px';
+
+      const angulo = Math.random() * 2 * Math.PI;
+      const distancia = Math.random() * 100 + 50;
+
+      particula.style.setProperty('--x', Math.cos(angulo) * distancia + 'px');
+      particula.style.setProperty('--y', Math.sin(angulo) * distancia + 'px');
+      particula.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+      fogos.appendChild(particula);
+
+      setTimeout(() => particula.remove(), 1000);
+    }
+  }
+
+  envelope.addEventListener('click', () => {
+    envelope.style.display = 'none';
+
+    chuvaTulipas(4000, () => {
+      foto.style.display = 'block';
+      frase.style.display = 'block';
+      soltarFogos();
+
+      setTimeout(() => {
+        frase.style.display = 'none';
+        foto.style.display = 'none';
+        presente.style.display = 'block';
+      }, 3500);
+
+      presente.addEventListener('click', () => {
+        presente.style.display = 'none';
+        gatinho.style.display = 'block';
+
+        setTimeout(() => {
+          gatinho.style.display = 'none';
+        }, 4000);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
