@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Freelancer-app",
-    "slug": "Freelancer-app",
+    "name": "freela-app",
+    "slug": "freela-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
